@@ -1,70 +1,64 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Buying - Steal The Brainrot</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buy Brainrots | Steal The Brainrot</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <div class="logo">Steal The Brainrot</div>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="discord.html">Discord</a>
-    <a href="buying.html">Buying</a>
-    <a href="brainrots.html">Brainrots</a>
-  </nav>
-</header>
+  <header>
+    <h1>Steal The Brainrot</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="discord.html">Discord</a>
+      <a href="buying.html">Buy Brainrots</a>
+    </nav>
+  </header>
 
-<main>
-  <h1>Buy Your Brainrots</h1>
-  <p>Add products to your cart and checkout using PayPal.</p>
+  <main>
+    <section class="shop">
+      <h2>Shop Our Brainrots</h2>
+      <div class="product-grid">
+        <div class="product">
+          <img src="dul-dul-dul.png" alt="Dul Dul Dul (NEON)">
+          <h3>Dul Dul Dul (NEON)</h3>
+          <p>£40</p>
+          <button onclick="addToCart('dul', 'Dul Dul Dul (NEON)', 40)">Add to Cart</button>
+        </div>
 
-  <div class="product-grid">
-    <!-- Dul Dul Dul -->
-    <div class="product-card" onclick="addToCart('dul-dul-dul', 'Dul Dul Dul (NEON)', 40)">
-      <img src="images/dul-dul-dul.png" alt="Dul Dul Dul (NEON)">
-      <div class="product-name">Dul Dul Dul (NEON)</div>
-      <div class="product-price">£40</div>
-    </div>
+        <div class="product">
+          <img src="tualetti.png" alt="Spaghetti Tualetti (LIGHTNING TRAIT)">
+          <h3>Spaghetti Tualetti (LIGHTNING TRAIT)</h3>
+          <p>£30</p>
+          <button onclick="addToCart('tualetti', 'Spaghetti Tualetti (LIGHTNING TRAIT)', 30)">Add to Cart</button>
+        </div>
 
-    <!-- Spaghetti Tualetti -->
-    <div class="product-card" onclick="addToCart('tualetti', 'Spaghetti Tualetti (LIGHTNING TRAIT)', 30)">
-      <img src="images/tualetti.png" alt="Spaghetti Tualetti (LIGHTNING TRAIT)">
-      <div class="product-name">Spaghetti Tualetti (LIGHTNING TRAIT)</div>
-      <div class="product-price">£30</div>
-    </div>
+        <div class="product">
+          <img src="chicleteira.png" alt="Chicleteira Bicicleteira (HALLOWEEN)">
+          <h3>Chicleteira Bicicleteira (HALLOWEEN)</h3>
+          <p>£20</p>
+          <button onclick="addToCart('chicleteira1', 'Chicleteira Bicicleteira (HALLOWEEN)', 20)">Add to Cart</button>
+        </div>
 
-    <!-- Chicleteira Bicicleteira 1 -->
-    <div class="product-card" onclick="addToCart('chicleteira1', 'Chicleteira Bicicleteira (HALLOWEEN)', 20)">
-      <img src="images/chicleteira.png" alt="Chicleteira Bicicleteira (HALLOWEEN)">
-      <div class="product-name">Chicleteira Bicicleteira (HALLOWEEN)</div>
-      <div class="product-price">£20</div>
-    </div>
+        <div class="product">
+          <img src="La-grande.png" alt="La Grande Combinacion (HALLOWEEN)">
+          <h3>La Grande Combinacion (HALLOWEEN)</h3>
+          <p>£10</p>
+          <button onclick="addToCart('grande', 'La Grande Combinacion (HALLOWEEN)', 10)">Add to Cart</button>
+        </div>
+      </div>
+    </section>
 
-    <!-- Chicleteira Bicicleteira 2 -->
-    <div class="product-card" onclick="addToCart('chicleteira2', 'Chicleteira Bicicleteira (HALLOWEEN)', 20)">
-      <img src="images/chicleteira.png" alt="Chicleteira Bicicleteira (HALLOWEEN)">
-      <div class="product-name">Chicleteira Bicicleteira (HALLOWEEN)</div>
-      <div class="product-price">£20</div>
-    </div>
-
-    <!-- La Grande Combinacion -->
-    <div class="product-card" onclick="addToCart('la-grande', 'La Grande Combinacion (Halloween)', 10)">
-      <img src="images/La-grande.png" alt="La Grande Combinacion (Halloween)">
-      <div class="product-name">La Grande Combinacion (Halloween)</div>
-      <div class="product-price">£10</div>
-    </div>
-  </div>
-
-  <!-- Winkelmand sectie -->
-  <h2>Your Cart</h2>
-  <ul id="cart-items"></ul>
-  <p id="cart-total">Total: £0</p>
-  <div class="buttons">
-    <button class="btn" onclick="checkout()">Checkout</button>
-  </div>
+    <section class="cart-section">
+      <h2>Your Cart</h2>
+      <ul id="cart-items"></ul>
+      <p id="cart-total">Total: £0</p>
+      <button class="btn secondary" onclick="checkout()">Checkout</button>
+    </section>
+  </main>
 
   <!-- Checkout Modal -->
   <div id="checkoutModal" class="modal">
@@ -73,16 +67,14 @@
       <h2>Review Your Cart</h2>
       <ul id="checkout-items"></ul>
       <p id="checkout-total"></p>
-      <button class="btn" onclick="proceedToPayPal()">Buy</button>
+      <button class="btn primary" onclick="proceedToPayPal()">Buy</button>
     </div>
   </div>
-</main>
 
-<footer>
-© 2025 Steal The Brainrot. All rights reserved.
-</footer>
+  <footer>
+    <p>© 2025 Steal The Brainrot | All rights reserved</p>
+  </footer>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
-

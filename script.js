@@ -1,3 +1,6 @@
+
+
+
 let cart = [];
 let totalPrice = 0;
 
@@ -7,7 +10,6 @@ function addToCart(id, name, price) {
     alert(`${name} is already in your cart!`);
     return;
   }
-
   cart.push({ id, name, price });
   totalPrice += price;
   updateCart();
@@ -28,7 +30,7 @@ function updateCart() {
   if (cartTotal) cartTotal.textContent = `Total: £${totalPrice}`;
 }
 
-// --- Checkout modal ---
+// Checkout modal
 const checkoutModal = document.getElementById('checkoutModal');
 const checkoutItems = document.getElementById('checkout-items');
 const checkoutTotal = document.getElementById('checkout-total');
@@ -96,6 +98,3 @@ function proceedToPayPal() {
 
   closeCheckout();
 }
-
-
-
