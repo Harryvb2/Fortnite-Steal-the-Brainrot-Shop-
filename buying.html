@@ -1,91 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Buy Brainrots | Steal The Brainrot</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shop - Steal The Brainrot</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <header class="site-header">
-  <div class="header-container">
-    <h1 class="logo">Steal The Brainrot</h1>
-    <nav class="nav-links">
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="discord.html" class="nav-link">Discord</a>
-      <a href="buying.html" class="nav-link active">Buy</a>
-    </nav>
-  </div>
+  <div class="brand">Steal The Brainrot</div>
+  <nav>
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="discord.html" class="nav-link">Discord</a>
+    <a href="buying.html" class="nav-link active">Shop</a>
+  </nav>
 </header>
 
-<main class="container">
-  <section class="shop">
-    <h2>Shop our Brainrots</h2>
-    <p class="lead">Click "Add to cart" to add an item. Each product can only be added once per unique item. You can remove items from the cart before checkout.</p>
+<main class="shop-main">
+  <h1>Shop Our Brainrots</h1>
+  <p class="lead">Click "Add to Cart" to select an item. Items already purchased cannot be added again.</p>
 
-    <div class="product-grid">
-      <!-- Dul Dul Dul -->
-      <article class="product-card">
-        <img src="dul-dul-dul.png" alt="Dul Dul Dul (NEON)">
-        <div class="product-body">
-          <h3>Dul Dul Dul (NEON)</h3>
-          <div class="price">£40</div>
-          <button id="add-dul" class="btn add-btn" onclick="addToCart('dul', 'Dul Dul Dul (NEON)', 40)">Add to cart</button>
-        </div>
-      </article>
-
-      <!-- Spaghetti Tualetti -->
-      <article class="product-card">
-        <img src="tualetti.png" alt="Spaghetti Tualetti (LIGHTNING TRAIT)">
-        <div class="product-body">
-          <h3>Spaghetti Tualetti (LIGHTNING TRAIT)</h3>
-          <div class="price">£30</div>
-          <button id="add-tualetti" class="btn add-btn" onclick="addToCart('tualetti', 'Spaghetti Tualetti (LIGHTNING TRAIT)', 30)">Add to cart</button>
-        </div>
-      </article>
-
-      <!-- Chicleteira 1 -->
-      <article class="product-card">
-        <img src="chicleteira.png" alt="Chicleteira Bicicleteira (HALLOWEEN)">
-        <div class="product-body">
-          <h3>Chicleteira Bicicleteira (HALLOWEEN)</h3>
-          <div class="price">£20</div>
-          <button id="add-chic1" class="btn add-btn" onclick="addToCart('chic1', 'Chicleteira Bicicleteira (HALLOWEEN)', 20)">Add to cart</button>
-        </div>
-      </article>
-
-      <!-- Chicleteira 2 -->
-      <article class="product-card">
-        <img src="chicleteira.png" alt="Chicleteira Bicicleteira (HALLOWEEN)">
-        <div class="product-body">
-          <h3>Chicleteira Bicicleteira (HALLOWEEN)</h3>
-          <div class="price">£20</div>
-          <button id="add-chic2" class="btn add-btn" onclick="addToCart('chic2', 'Chicleteira Bicicleteira (HALLOWEEN)', 20)">Add to cart</button>
-        </div>
-      </article>
-
-      <!-- La Grande -->
-      <article class="product-card">
-        <img src="La-grande.png" alt="La Grande Combinacion (HALLOWEEN)">
-        <div class="product-body">
-          <h3>La Grande Combinacion (HALLOWEEN)</h3>
-          <div class="price">£10</div>
-          <button id="add-grande" class="btn add-btn" onclick="addToCart('grande', 'La Grande Combinacion (HALLOWEEN)', 10)">Add to cart</button>
-        </div>
-      </article>
+  <div class="product-grid">
+    <!-- Dul Dul Dul -->
+    <div class="product-card" id="card-dul">
+      <img src="dul-dul-dul.png" alt="Dul Dul Dul">
+      <h3>Dul Dul Dul (NEON)</h3>
+      <p class="price">£40</p>
+      <button id="add-dul" class="btn add-btn" onclick="addToCart('dul', 'Dul Dul Dul (NEON)', 40)">Add to Cart</button>
+      <span class="sold-out" style="display:none;">Sold Out</span>
     </div>
-  </section>
 
-  <aside class="cart">
+    <!-- Spaghetti Tualetti -->
+    <div class="product-card" id="card-tualetti">
+      <img src="tualetti.png" alt="Spaghetti Tualetti">
+      <h3>Spaghetti Tualetti (LIGHTNING TRAIT)</h3>
+      <p class="price">£30</p>
+      <button id="add-tualetti" class="btn add-btn" onclick="addToCart('tualetti', 'Spaghetti Tualetti (LIGHTNING TRAIT)', 30)">Add to Cart</button>
+      <span class="sold-out" style="display:none;">Sold Out</span>
+    </div>
+
+    <!-- Chicleteira 1 -->
+    <div class="product-card" id="card-chic1">
+      <img src="chicleteira.png" alt="Chicleteira 1">
+      <h3>Chicleteira Bicicleteira (HALLOWEEN)</h3>
+      <p class="price">£20</p>
+      <button id="add-chic1" class="btn add-btn" onclick="addToCart('chic1', 'Chicleteira Bicicleteira (HALLOWEEN)', 20)">Add to Cart</button>
+      <span class="sold-out" style="display:none;">Sold Out</span>
+    </div>
+
+    <!-- Chicleteira 2 -->
+    <div class="product-card" id="card-chic2">
+      <img src="chicleteira.png" alt="Chicleteira 2">
+      <h3>Chicleteira Bicicleteira (HALLOWEEN)</h3>
+      <p class="price">£20</p>
+      <button id="add-chic2" class="btn add-btn" onclick="addToCart('chic2', 'Chicleteira Bicicleteira (HALLOWEEN)', 20)">Add to Cart</button>
+      <span class="sold-out" style="display:none;">Sold Out</span>
+    </div>
+
+    <!-- La Grande -->
+    <div class="product-card" id="card-grande">
+      <img src="La-grande.png" alt="La Grande Combinacion">
+      <h3>La Grande Combinacion (HALLOWEEN)</h3>
+      <p class="price">£10</p>
+      <button id="add-grande" class="btn add-btn" onclick="addToCart('grande', 'La Grande Combinacion (HALLOWEEN)', 10)">Add to Cart</button>
+      <span class="sold-out" style="display:none;">Sold Out</span>
+    </div>
+  </div>
+
+  <div class="cart-overview">
     <h2>Your Cart</h2>
-    <ul id="cart-items" class="cart-list"></ul>
-    <div class="cart-footer">
-      <div id="cart-total" class="cart-total">Total: £0</div>
-      <button class="btn primary" onclick="goToCheckout()">Go to Checkout</button>
-    </div>
-  </aside>
+    <ul id="cart-items"></ul>
+    <p id="cart-total">Total: £0</p>
+    <button class="btn primary" onclick="checkout()">Review & Checkout</button>
+  </div>
 </main>
+
+<!-- Checkout modal -->
+<div id="checkoutModal" class="modal">
+  <div class="modal-panel">
+    <button class="modal-close" onclick="closeCheckout()">×</button>
+    <h3>Review Your Order</h3>
+    <ul id="checkout-items"></ul>
+    <p id="checkout-total"></p>
+    <button class="btn primary" onclick="proceedToPayPal()">Buy (PayPal)</button>
+    <button class="btn" onclick="closeCheckout()">Back</button>
+  </div>
+</div>
+
+<!-- Post-purchase modal -->
+<div id="postModal" class="modal">
+  <div class="modal-panel">
+    <button class="modal-close" onclick="closePost()">×</button>
+    <h3>Thank You!</h3>
+    <p>Your PayPal window should now be open. After completing payment, open a ticket in Discord to get your items delivered.</p>
+    <a href="https://discord.gg/7AgCkbJk2W" class="btn primary" target="_blank">Open Discord</a>
+  </div>
+</div>
 
 <script src="script.js"></script>
 </body>
