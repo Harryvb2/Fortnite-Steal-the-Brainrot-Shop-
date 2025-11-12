@@ -10,6 +10,7 @@
   --card: rgba(255,255,255,0.02);
 }
 
+/* General reset */
 *{box-sizing:border-box}
 body{
   margin:0;
@@ -19,7 +20,7 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
-/* HEADER: centered container, nav right */
+/* HEADER: simple header layout: nav right */
 .site-header{
   position:sticky;
   top:0;
@@ -27,22 +28,12 @@ body{
   background: rgba(7,10,14,0.75);
   backdrop-filter: blur(6px);
   padding:12px 20px;
-}
-.site-header .brand{
-  display:none; /* hide brand left since using centered layout */
-}
-.header-container{display:none;} /* not used in this final CSS */
-
-/* simple header layout: brand left hidden, nav right */
-.site-header{
   display:flex;
-  justify-content:space-between;
+  justify-content:flex-end;
   align-items:center;
   max-width:1200px;
   margin:0 auto;
 }
-.site-header .brand{ font-weight:700; color:var(--accent); font-size:1.1rem; }
-.site-header nav{ display:flex; gap:14px; }
 .nav-link{
   color:#cfeee6;
   text-decoration:none;
@@ -50,8 +41,16 @@ body{
   border-radius:8px;
   font-weight:600;
 }
-.nav-link:hover{ background: rgba(0,0,0,0.35); color:var(--accent); box-shadow: 0 6px 18px rgba(0,209,178,0.08); }
-.nav-link.active{ background: linear-gradient(90deg,var(--accent), #7de0ff); color:#08121a; font-weight:700; }
+.nav-link:hover{
+  background: rgba(0,0,0,0.35);
+  color:var(--accent);
+  box-shadow: 0 6px 18px rgba(0,209,178,0.08);
+}
+.nav-link.active{
+  background: linear-gradient(90deg,var(--accent), #7de0ff);
+  color:#08121a;
+  font-weight:700;
+}
 
 /* HOME HERO - fully centered */
 .home-main .hero{
@@ -73,7 +72,12 @@ body{
   font-size: clamp(14px, 2.2vw, 18px);
   margin-bottom:20px;
 }
-.hero-buttons{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+.hero-buttons{
+  display:flex;
+  gap:14px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
 
 /* Buttons */
 .btn{
@@ -89,9 +93,19 @@ body{
   transition: transform .14s ease, box-shadow .14s ease;
   box-shadow: 0 6px 20px rgba(0,0,0,0.45);
 }
-.btn:hover{ transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,0.6); }
-.btn.secondary{ background: var(--card); color:#fff; border:1px solid rgba(255,255,255,0.04); }
-.btn.primary{ background: linear-gradient(90deg,var(--accent), #7de0ff); color:#08121a; }
+.btn:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.6);
+}
+.btn.secondary{
+  background: var(--card);
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.04);
+}
+.btn.primary{
+  background: linear-gradient(90deg,var(--accent), #7de0ff);
+  color:#08121a;
+}
 
 /* SHOP layout */
 .shop-main{
@@ -99,8 +113,16 @@ body{
   max-width:1200px;
   margin:0 auto;
 }
-.shop-main h1{ text-align:center; font-size:28px; margin-bottom:8px; }
-.lead{ text-align:center; color:var(--muted); margin-bottom:22px; }
+.shop-main h1{
+  text-align:center;
+  font-size:28px;
+  margin-bottom:8px;
+}
+.lead{
+  text-align:center;
+  color:var(--muted);
+  margin-bottom:22px;
+}
 
 /* Product grid */
 .product-grid{
@@ -126,9 +148,16 @@ body{
   display:block;
   margin-bottom:10px;
 }
-.product-card h3{ font-size:1rem; margin:6px 0; color:#e8fff9; }
-.product-card .price{ color:var(--muted); font-weight:700; margin-bottom:8px; }
-
+.product-card h3{
+  font-size:1rem;
+  margin:6px 0;
+  color:#e8fff9;
+}
+.product-card .price{
+  color:var(--muted);
+  font-weight:700;
+  margin-bottom:8px;
+}
 /* Sold out badge */
 .product-card .sold-out{
   display:none;
@@ -144,7 +173,7 @@ body{
   box-shadow: 0 6px 18px rgba(255,122,71,0.12);
 }
 
-/* Cart overview (below grid on mobile, right on wide) */
+/* Cart overview */
 .cart-overview{
   max-width:900px;
   margin:20px auto 60px;
@@ -152,10 +181,34 @@ body{
   text-align:center;
 }
 .cart-overview h2{ margin-bottom:8px; }
-.cart-list{ list-style:none; padding:0; margin:12px 0; }
-.cart-item{ display:flex; justify-content:space-between; align-items:center; background: rgba(255,255,255,0.02); padding:8px 12px; border-radius:8px; margin:8px 0; }
+.cart-list{
+  list-style:none;
+  padding:0;
+  margin:12px 0;
+}
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background: rgba(255,255,255,0.02);
+  padding:8px 12px;
+  border-radius:8px;
+  margin:8px 0;
+}
+.remove-btn, .remove-btn:focus{
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.06);
+  padding:6px 8px;
+  border-radius:6px;
+  color:var(--muted);
+  cursor:pointer;
+}
+.disabled{
+  opacity:0.6;
+  cursor:not-allowed;
+}
 
-/* Modal (checkout + post) */
+/* Modals */
 .modal{
   display:none;
   position:fixed;
@@ -174,7 +227,14 @@ body{
   box-shadow: 0 20px 60px rgba(0,0,0,0.6);
   color:#eaf6f4;
 }
-.modal-close{ float:right; background:transparent; border:none; color:#fff; font-size:22px; cursor:pointer; }
+.modal-close{
+  float:right;
+  background:transparent;
+  border:none;
+  color:#fff;
+  font-size:22px;
+  cursor:pointer;
+}
 
 /* Notifications */
 .cart-notification{
@@ -192,11 +252,48 @@ body{
   z-index:1100;
   transition: opacity .22s ease, transform .22s ease;
 }
-.cart-notification.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+.cart-notification.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
 
-/* small utilities */
-.remove-btn, .remove-btn:focus { background:transparent; border:1px solid rgba(255,255,255,0.06); padding:6px 8px; border-radius:6px; color:var(--muted); cursor:pointer; }
-.disabled{ opacity:0.6; cursor:not-allowed; }
+/* FOOTER */
+.site-footer{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding: 14px 20px;
+  color:var(--muted);
+  background: rgba(0,0,0,0.12);
+  margin-top:28px;
+}
+
+/* Discord page panel */
+.discord-panel{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  max-width:600px;
+  margin:60px auto;
+  padding:20px;
+  background: rgba(255,255,255,0.02);
+  border-radius:12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+}
+.discord-panel h2{
+  margin-bottom:12px;
+  font-size:1.8rem;
+}
+.discord-panel p{
+  color:var(--muted);
+  margin-bottom:20px;
+}
+.discord-panel .btn{
+  display:inline-block;
+}
 
 /* Responsive */
 @media (max-width:900px){
@@ -208,34 +305,4 @@ body{
   .product-card img{ height:100px; }
   .nav-link{ padding:6px 8px; font-size:14px; }
   .hero-text h1{ font-size:22px; }
-}
-/* Footer centering for home and discord pages */
-.site-footer {
-  text-align: center;  /* centreren van copyright + Discord link */
-  padding: 14px 20px;
-  color: var(--muted);
-  background: rgba(0,0,0,0.12);
-  margin-top: 28px;
-}
-
-/* Discord page centering */
-.discord-panel {
-  max-width: 600px;
-  margin: 60px auto;  /* gecentreerd verticaal en horizontaal */
-  text-align: center;
-  padding: 20px;
-  background: var(--panel);
-  border-radius: 12px;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
-}
-.discord-panel h2 {
-  margin-bottom: 12px;
-  font-size: 1.8rem;
-}
-.discord-panel p {
-  color: var(--muted);
-  margin-bottom: 20px;
-}
-.discord-panel .btn {
-  display: inline-block;
 }
