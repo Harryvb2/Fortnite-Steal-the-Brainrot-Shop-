@@ -8,57 +8,87 @@
 </head>
 <body>
   <header class="site-header">
-    <h1>Shop Brainrots</h1>
-    <p>Click “Add to Cart” to select your items. Sold-out items cannot be purchased again.</p>
+    <div class="nav-container">
+      <h1 class="logo">Buy Your Brainrots</h1>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="discord.html" class="nav-link">Discord</a>
+        <a href="buying.html" class="nav-link active">Buy</a>
+      </nav>
+    </div>
+    <p class="motto">The Best Brainrots, Fast Delivery & Cheap Prices</p>
   </header>
 
-  <main class="product-container">
-    <div class="product-card" id="dul">
-      <img src="dul-dul-dul.png" alt="Dul Dul Dul (NEON)">
-      <h2>Dul Dul Dul (NEON)</h2>
-      <p>£40</p>
-      <button onclick="addToCart('dul','Dul Dul Dul (NEON)',40)" id="btn-dul">Add to Cart</button>
-      <span class="sold-out" id="sold-dul">Sold Out</span>
-    </div>
+  <main class="container">
+    <section class="shop">
+      <h2>Shop our Brainrots</h2>
+      <p class="lead">Click "Add to cart" to add an item. Each product can only be added once. Remove items in the cart if needed before checkout.</p>
 
-    <div class="product-card" id="tualetti">
-      <img src="tualetti.png" alt="Spaghetti Tualetti (LIGHTNING TRAIT)">
-      <h2>Spaghetti Tualetti (LIGHTNING TRAIT)</h2>
-      <p>£30</p>
-      <button onclick="addToCart('tualetti','Spaghetti Tualetti (LIGHTNING TRAIT)',30)" id="btn-tualetti">Add to Cart</button>
-      <span class="sold-out" id="sold-tualetti">Sold Out</span>
-    </div>
+      <div class="product-grid">
+        <!-- Dul Dul Dul -->
+        <article class="product-card">
+          <img src="dul-dul-dul.png" alt="Dul Dul Dul (NEON)">
+          <div class="product-body">
+            <h3>Dul Dul Dul (NEON)</h3>
+            <div class="price">£40</div>
+            <button id="add-dul" class="btn add-btn" onclick="addToCart('dul', 'Dul Dul Dul (NEON)', 40)">Add to cart</button>
+          </div>
+        </article>
 
-    <div class="product-card" id="chic1">
-      <img src="chicleteira.png" alt="Chicleteira Bicicleteira (HALLOWEEN)">
-      <h2>Chicleteira Bicicleteira (HALLOWEEN)</h2>
-      <p>£20</p>
-      <button onclick="addToCart('chic1','Chicleteira Bicicleteira (HALLOWEEN)',20)" id="btn-chic1">Add to Cart</button>
-      <span class="sold-out" id="sold-chic1">Sold Out</span>
-    </div>
+        <!-- Spaghetti Tualetti -->
+        <article class="product-card">
+          <img src="tualetti.png" alt="Spaghetti Tualetti (LIGHTNING TRAIT)">
+          <div class="product-body">
+            <h3>Spaghetti Tualetti (LIGHTNING TRAIT)</h3>
+            <div class="price">£30</div>
+            <button id="add-tualetti" class="btn add-btn" onclick="addToCart('tualetti', 'Spaghetti Tualetti (LIGHTNING TRAIT)', 30)">Add to cart</button>
+          </div>
+        </article>
 
-    <div class="product-card" id="chic2">
-      <img src="chicleteira.png" alt="Chicleteira Bicicleteira (HALLOWEEN)">
-      <h2>Chicleteira Bicicleteira (HALLOWEEN)</h2>
-      <p>£20</p>
-      <button onclick="addToCart('chic2','Chicleteira Bicicleteira (HALLOWEEN)',20)" id="btn-chic2">Add to Cart</button>
-      <span class="sold-out" id="sold-chic2">Sold Out</span>
-    </div>
+        <!-- Chicleteira 1 -->
+        <article class="product-card">
+          <img src="chicleteira.png" alt="Chicleteira Bicicleteira (HALLOWEEN)">
+          <div class="product-body">
+            <h3>Chicleteira Bicicleteira (HALLOWEEN)</h3>
+            <div class="price">£20</div>
+            <button id="add-chic1" class="btn add-btn" onclick="addToCart('chic1', 'Chicleteira Bicicleteira (HALLOWEEN)', 20)">Add to cart</button>
+          </div>
+        </article>
 
-    <div class="product-card" id="grande">
-      <img src="La-grande.png" alt="La Grande Combinacion (HALLOWEEN)">
-      <h2>La Grande Combinacion (HALLOWEEN)</h2>
-      <p>£10</p>
-      <button onclick="addToCart('grande','La Grande Combinacion (HALLOWEEN)',10)" id="btn-grande">Add to Cart</button>
-      <span class="sold-out" id="sold-grande">Sold Out</span>
-    </div>
+        <!-- Chicleteira 2 -->
+        <article class="product-card">
+          <img src="chicleteira.png" alt="Chicleteira Bicicleteira (HALLOWEEN)">
+          <div class="product-body">
+            <h3>Chicleteira Bicicleteira (HALLOWEEN)</h3>
+            <div class="price">£20</div>
+            <button id="add-chic2" class="btn add-btn" onclick="addToCart('chic2', 'Chicleteira Bicicleteira (HALLOWEEN)', 20)">Add to cart</button>
+          </div>
+        </article>
+
+        <!-- La Grande -->
+        <article class="product-card">
+          <img src="La-grande.png" alt="La Grande Combinacion (HALLOWEEN)">
+          <div class="product-body">
+            <h3>La Grande Combinacion (HALLOWEEN)</h3>
+            <div class="price">£10</div>
+            <button id="add-grande" class="btn add-btn" onclick="addToCart('grande', 'La Grande Combinacion (HALLOWEEN)', 10)">Add to cart</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <aside class="cart">
+      <h2>Your Cart</h2>
+      <ul id="cart-items" class="cart-list"></ul>
+      <div class="cart-footer">
+        <div id="cart-total" class="cart-total">Total: £0</div>
+        <a href="checkout.html" class="btn primary">Go to Checkout</a>
+      </div>
+    </aside>
   </main>
-
-  <footer>
-    <a href="cart.html" class="btn primary">Go to Cart</a>
-  </footer>
 
   <script src="script.js"></script>
 </body>
 </html>
+
 
