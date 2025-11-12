@@ -1,11 +1,9 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Shop - Steal The Brainrot</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shop Brainrots - Steal The Brainrot</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,61 +17,54 @@
   </header>
 
   <main class="shop-main">
-    <h1>Shop our Brainrots</h1>
-    <p class="lead">Click "Add to cart" to add an item. Each product can only be added once per unique item. Remove items anytime before checkout.</p>
+    <h1>Shop Our Brainrots</h1>
+    <p class="lead">Click "Add to cart" to add an item. Each product can only be purchased once.</p>
 
     <div class="product-grid">
-      <!-- Dul Dul Dul -->
       <div class="product-card" id="prod-dul">
-        <img src="dul-dul-dul.png" alt="Dul Dul Dul">
-        <h3>Dul Dul Dul</h3>
+        <img src="dul-dul-dul.png" alt="Dul Dul Dul (NEON)">
+        <h3>Dul Dul Dul (NEON)</h3>
         <div class="price">£40</div>
-        <button class="btn add-btn" id="add-dul" onclick="addToCart('dul','Dul Dul Dul',40)">Add to cart</button>
         <span class="sold-out">Sold Out</span>
+        <button class="btn add-btn" onclick="addToCart('dul', 'Dul Dul Dul (NEON)', 40)">Add to cart</button>
       </div>
 
-      <!-- Spaghetti Tualetti -->
       <div class="product-card" id="prod-tualetti">
-        <img src="tualetti.png" alt="Spaghetti Tualetti">
-        <h3>Spaghetti Tualetti</h3>
+        <img src="tualetti.png" alt="Spaghetti Tualetti (LIGHTNING TRAIT)">
+        <h3>Spaghetti Tualetti (LIGHTNING TRAIT)</h3>
         <div class="price">£30</div>
-        <button class="btn add-btn" id="add-tualetti" onclick="addToCart('tualetti','Spaghetti Tualetti',30)">Add to cart</button>
         <span class="sold-out">Sold Out</span>
+        <button class="btn add-btn" onclick="addToCart('tualetti', 'Spaghetti Tualetti (LIGHTNING TRAIT)', 30)">Add to cart</button>
       </div>
 
-      <!-- Chicleteira 1 -->
       <div class="product-card" id="prod-chic1">
-        <img src="chicleteira.png" alt="Chicleteira">
-        <h3>Chicleteira Bicicleteira</h3>
+        <img src="chicleteira.png" alt="Chicleteira Bicicleteira (HALLOWEEN)">
+        <h3>Chicleteira Bicicleteira (HALLOWEEN)</h3>
         <div class="price">£20</div>
-        <button class="btn add-btn" id="add-chic1" onclick="addToCart('chic1','Chicleteira Bicicleteira',20)">Add to cart</button>
         <span class="sold-out">Sold Out</span>
+        <button class="btn add-btn" onclick="addToCart('chic1', 'Chicleteira Bicicleteira (HALLOWEEN)', 20)">Add to cart</button>
       </div>
 
-      <!-- Chicleteira 2 -->
       <div class="product-card" id="prod-chic2">
-        <img src="chicleteira.png" alt="Chicleteira">
-        <h3>Chicleteira Bicicleteira</h3>
+        <img src="chicleteira.png" alt="Chicleteira Bicicleteira (HALLOWEEN)">
+        <h3>Chicleteira Bicicleteira (HALLOWEEN)</h3>
         <div class="price">£20</div>
-        <button class="btn add-btn" id="add-chic2" onclick="addToCart('chic2','Chicleteira Bicicleteira',20)">Add to cart</button>
         <span class="sold-out">Sold Out</span>
+        <button class="btn add-btn" onclick="addToCart('chic2', 'Chicleteira Bicicleteira (HALLOWEEN)', 20)">Add to cart</button>
       </div>
 
-      <!-- La Grande -->
       <div class="product-card" id="prod-grande">
-        <img src="La-grande.png" alt="La Grande Combinacion">
-        <h3>La Grande Combinacion</h3>
+        <img src="La-grande.png" alt="La Grande Combinacion (HALLOWEEN)">
+        <h3>La Grande Combinacion (HALLOWEEN)</h3>
         <div class="price">£10</div>
-        <button class="btn add-btn" id="add-grande" onclick="addToCart('grande','La Grande Combinacion',10)">Add to cart</button>
         <span class="sold-out">Sold Out</span>
+        <button class="btn add-btn" onclick="addToCart('grande', 'La Grande Combinacion (HALLOWEEN)', 10)">Add to cart</button>
       </div>
     </div>
 
-    <!-- Cart -->
     <div class="cart-overview">
       <h2>Your Cart</h2>
-      <ul class="cart-list" id="cart-items"></ul>
-      <div>Total: £<span id="cart-total">0.00</span></div>
+      <ul id="cart-items" class="cart-list"></ul>
       <button class="btn primary" onclick="checkout()">Review & Checkout</button>
     </div>
   </main>
@@ -82,11 +73,13 @@
   <div id="checkoutModal" class="modal" aria-hidden="true">
     <div class="modal-panel">
       <button class="modal-close" onclick="closeCheckout()">×</button>
-      <h3>Review your order</h3>
+      <h3>Review Your Order</h3>
       <ul id="checkout-items" class="checkout-list"></ul>
-      <div id="checkout-total" class="checkout-total">Total: £0.00</div>
-      <div style="text-align:center; margin-top:14px;">
-        <button class="btn primary" onclick="proceedToPayPal()">Buy with PayPal</button>
+      <div id="checkout-total" class="checkout-total"></div>
+      <div class="modal-actions">
+        <button class="btn" onclick="closeCheckout()">Back</button>
+        <button class="btn primary" onclick="proceedToPay('paypal')">Pay with PayPal</button>
+        <button class="btn primary" onclick="proceedToPay('credit')">Pay with Credit Card</button>
       </div>
     </div>
   </div>
@@ -95,13 +88,16 @@
   <div id="postModal" class="modal" aria-hidden="true">
     <div class="modal-panel">
       <button class="modal-close" onclick="closePost()">×</button>
-      <h3>Thank you!</h3>
-      <p>Your PayPal window should now be open. After payment, please open a ticket in our Discord server to receive your items.</p>
+      <h3>Thank You!</h3>
+      <p>Your payment window should now be open. After completing payment, open a ticket in our Discord to receive your items.</p>
       <a href="https://discord.gg/7AgCkbJk2W" class="btn primary" target="_blank">Open Discord</a>
     </div>
   </div>
 
+  <div id="cart-notification" class="cart-notification"></div>
+
   <script src="script.js"></script>
 </body>
 </html>
+
 
