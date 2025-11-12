@@ -1,47 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Shop | Steal The Brainrot</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop - Steal The Brainrot</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="site-header">
-    <div class="brand"><h1>Steal The Brainrot</h1></div>
-    <nav>
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="discord.html" class="nav-link">Discord</a>
-      <a href="buying.html" class="nav-link active">Shop</a>
-    </nav>
+    <h1>Shop Brainrots</h1>
+    <p>Click “Add to Cart” to select your items. Sold-out items cannot be purchased again.</p>
   </header>
 
-  <main class="shop-main">
-    <h2>Shop Brainrots</h2>
-    <div class="products" id="product-list"></div>
-
-    <div class="cart-section">
-      <h3>Your Cart</h3>
-      <ul id="cart-items"></ul>
-      <p id="total-price">Total: £0</p>
-      <button id="checkout" class="btn primary">Checkout</button>
+  <main class="product-container">
+    <div class="product-card" id="dul">
+      <img src="dul-dul-dul.png" alt="Dul Dul Dul (NEON)">
+      <h2>Dul Dul Dul (NEON)</h2>
+      <p>£40</p>
+      <button onclick="addToCart('dul','Dul Dul Dul (NEON)',40)" id="btn-dul">Add to Cart</button>
+      <span class="sold-out" id="sold-dul">Sold Out</span>
     </div>
 
-    <div id="review-modal" class="modal hidden">
-      <div class="modal-content">
-        <h3>Review Your Order</h3>
-        <ul id="review-list"></ul>
-        <p id="review-total"></p>
-        <div class="review-buttons">
-          <button id="cancel-review" class="btn">Cancel</button>
-          <button id="confirm-buy" class="btn primary">Buy Now</button>
-        </div>
-      </div>
+    <div class="product-card" id="tualetti">
+      <img src="tualetti.png" alt="Spaghetti Tualetti (LIGHTNING TRAIT)">
+      <h2>Spaghetti Tualetti (LIGHTNING TRAIT)</h2>
+      <p>£30</p>
+      <button onclick="addToCart('tualetti','Spaghetti Tualetti (LIGHTNING TRAIT)',30)" id="btn-tualetti">Add to Cart</button>
+      <span class="sold-out" id="sold-tualetti">Sold Out</span>
+    </div>
+
+    <div class="product-card" id="chic1">
+      <img src="chicleteira.png" alt="Chicleteira Bicicleteira (HALLOWEEN)">
+      <h2>Chicleteira Bicicleteira (HALLOWEEN)</h2>
+      <p>£20</p>
+      <button onclick="addToCart('chic1','Chicleteira Bicicleteira (HALLOWEEN)',20)" id="btn-chic1">Add to Cart</button>
+      <span class="sold-out" id="sold-chic1">Sold Out</span>
+    </div>
+
+    <div class="product-card" id="chic2">
+      <img src="chicleteira.png" alt="Chicleteira Bicicleteira (HALLOWEEN)">
+      <h2>Chicleteira Bicicleteira (HALLOWEEN)</h2>
+      <p>£20</p>
+      <button onclick="addToCart('chic2','Chicleteira Bicicleteira (HALLOWEEN)',20)" id="btn-chic2">Add to Cart</button>
+      <span class="sold-out" id="sold-chic2">Sold Out</span>
+    </div>
+
+    <div class="product-card" id="grande">
+      <img src="La-grande.png" alt="La Grande Combinacion (HALLOWEEN)">
+      <h2>La Grande Combinacion (HALLOWEEN)</h2>
+      <p>£10</p>
+      <button onclick="addToCart('grande','La Grande Combinacion (HALLOWEEN)',10)" id="btn-grande">Add to Cart</button>
+      <span class="sold-out" id="sold-grande">Sold Out</span>
     </div>
   </main>
 
-  <footer class="site-footer">
-    <p>© 2025 Steal The Brainrot. All rights reserved.</p>
+  <footer>
+    <a href="cart.html" class="btn primary">Go to Cart</a>
   </footer>
 
   <script src="script.js"></script>

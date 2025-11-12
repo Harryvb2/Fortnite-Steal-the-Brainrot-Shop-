@@ -1,106 +1,75 @@
-const products = [
-  { name: "Dul Dul Dul (NEON)", price: 40, img: "dul-dul-dul.png" },
-  { name: "Spaghetti Tualetti (LIGHTNING TRAIT)", price: 30, img: "tualetti.png" },
-  { name: "Chicleteira Bicicleteira (HALLOWEEN)", price: 20, img: "chicleteira.png" },
-  { name: "La Grande Combinacion (HALLOWEEN)", price: 10, img: "La-grande.png" }
-];
-
-const soldOut = JSON.parse(localStorage.getItem("soldOut")) || [];
 let cart = [];
+let total = 0;
 
-const productList = document.getElementById("product-list");
-const cartItems = document.getElementById("cart-items");
-const totalPriceElement = document.getElementById("total-price");
-const checkoutBtn = document.getElementById("checkout");
-const modal = document.getElementById("review-modal");
-const reviewList = document.getElementById("review-list");
-const reviewTotal = document.getElementById("review-total");
-const cancelReview = document.getElementById("cancel-review");
-const confirmBuy = document.getElementById("confirm-buy");
+// product bought tracker
+let boughtProducts = JSON.parse(localStorage.getItem('bought')) || {};
 
-function renderProducts() {
-  if (!productList) return;
-  productList.innerHTML = "";
-  products.forEach(p => {
-    const isSold = soldOut.includes(p.name);
-    const div = document.createElement("div");
-    div.classList.add("product");
-    if (isSold) div.classList.add("sold-out");
-    div.innerHTML = `
-      <img src="${p.img}" alt="${p.name}">
-      <h4>${p.name}</h4>
-      <p>£${p.price}</p>
-      <button ${isSold ? "disabled" : ""} class="btn add-btn" data-name="${p.name}">Add to Cart</button>
-    `;
-    productList.appendChild(div);
-  });
+function updateSoldOut(id){
+  const btn = document.getElementById("btn-" + id);
+  const sold = document.getElementById("sold-" + id);
+  if(boughtProducts[id]){
+    if(btn) btn.disabled = true;
+    if(sold) sold.style.display = "inline-block";
+  } else {
+    if(btn) btn.disabled = false;
+    if(sold) sold.style.display = "none";
+  }
 }
 
-function updateCart() {
-  if (!cartItems) return;
-  cartItems.innerHTML = "";
-  let total = 0;
-  cart.forEach((item, i) => {
-    total += item.price;
-    const li = document.createElement("li");
-    li.textContent = `${item.name} - £${item.price}`;
-    const removeBtn = document.createElement("button");
-    removeBtn.textContent = "×";
-    removeBtn.classList.add("remove-btn");
-    removeBtn.onclick = () => removeFromCart(i);
-    li.appendChild(removeBtn);
-    cartItems.appendChild(li);
-  });
-  totalPriceElement.textContent = `Total: £${total}`;
+function addToCart(id,name,price){
+  if(boughtProducts[id]){
+    alert("This product is sold out.");
+    return;
+  }
+  const exists = cart.find(p=>p.id===id);
+  if(exists){
+    alert("Already in cart");
+    return;
+  }
+  cart.push({id,name,price});
+  total+=price;
+  updateSoldOut(id);
+  alert(`${name} added to cart!`);
 }
 
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  updateCart();
+function checkoutCart(){
+  if(cart.length===0){ alert("Cart empty"); return;}
+  // Open PayPal
+  const form = document.createElement('form');
+  form.action = "https://www.paypal.com/cgi-bin/webscr";
+  form.method="post";
+  form.target="_blank";
+
+  form.appendChild(hiddenInput('cmd','_xclick'));
+  form.appendChild(hiddenInput('business','s.mooij2011@gmail.com'));
+  form.appendChild(hiddenInput('item_name',cart.map(p=>p.name).join(', ')));
+  form.appendChild(hiddenInput('amount',total.toFixed(2)));
+  form.appendChild(hiddenInput('currency_code','GBP'));
+
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
+
+  // mark bought
+  cart.forEach(p=>boughtProducts[p.id]=true);
+  localStorage.setItem('bought',JSON.stringify(boughtProducts));
+  cart=[];
+  total=0;
+  alert("Payment window opened. Claim your items in Discord!");
+  // reload to update sold out
+  location.reload();
 }
 
-function handleAddToCart(e) {
-  if (!e.target.classList.contains("add-btn")) return;
-  const name = e.target.dataset.name;
-  const product = products.find(p => p.name === name);
-  cart.push(product);
-  updateCart();
+function hiddenInput(name,value){
+  const inp=document.createElement('input');
+  inp.type='hidden';
+  inp.name=name;
+  inp.value=value;
+  return inp;
 }
 
-function openReviewModal() {
-  if (cart.length === 0) return alert("Your cart is empty!");
-  reviewList.innerHTML = "";
-  let total = 0;
-  cart.forEach(p => {
-    total += p.price;
-    const li = document.createElement("li");
-    li.textContent = `${p.name} - £${p.price}`;
-    reviewList.appendChild(li);
-  });
-  reviewTotal.textContent = `Total: £${total}`;
-  modal.classList.remove("hidden");
-}
+// initialize sold out
+['dul','tualetti','chic1','chic2','grande'].forEach(id=>updateSoldOut(id));
 
-function confirmPurchase() {
-  const total = cart.reduce((sum, p) => sum + p.price, 0);
-  alert(`Redirecting to PayPal... Total: £${total}`);
-  const email = "s.mooij2011@gmail.com";
-  window.open(`https://www.paypal.com/paypalme/${email}/${total}`, "_blank");
-  cart.forEach(item => soldOut.push(item.name));
-  localStorage.setItem("soldOut", JSON.stringify(soldOut));
-  cart = [];
-  updateCart();
-  renderProducts();
-  modal.classList.add("hidden");
-  alert("Thank you for your purchase! Please open a ticket in our Discord to claim your Brainrots.");
-}
-
-if (productList) {
-  productList.addEventListener("click", handleAddToCart);
-  checkoutBtn.addEventListener("click", openReviewModal);
-  cancelReview.addEventListener("click", () => modal.classList.add("hidden"));
-  confirmBuy.addEventListener("click", confirmPurchase);
-  renderProducts();
-}
 
 
