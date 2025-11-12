@@ -1,22 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cart - Steal The Brainrot</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkout | Steal The Brainrot</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="site-header">
-    <h1>Your Cart</h1>
-  </header>
 
-  <main class="cart-page">
-    <ul id="cart-list"></ul>
-    <h2 id="cart-total">Total: £0</h2>
-    <button class="btn primary" onclick="checkoutCart()">Checkout via PayPal</button>
-  </main>
+<header class="site-header">
+  <div class="header-container">
+    <h1 class="logo">Steal The Brainrot</h1>
+    <nav class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="discord.html" class="nav-link">Discord</a>
+      <a href="buying.html" class="nav-link active">Buy</a>
+    </nav>
+  </div>
+</header>
 
-  <script src="script.js"></script>
+<main class="checkout-container">
+  <div class="checkout-card">
+    <h2>Review Your Order</h2>
+    <ul id="checkout-items"></ul>
+    <div id="checkout-total"></div>
+
+    <h3>Select Payment Method:</h3>
+    <div class="payment-methods">
+      <label><input type="radio" name="payment" value="paypal" checked> PayPal</label>
+      <label><input type="radio" name="payment" value="ideal" disabled> iDEAL (coming soon)</label>
+    </div>
+
+    <div class="checkout-actions">
+      <button class="btn" onclick="window.location.href='buying.html'">Back to Shop</button>
+      <button class="btn primary" onclick="proceedToPay()">Buy</button>
+    </div>
+  </div>
+</main>
+
+<script>
+let cart=JSON.parse(localStorage.getItem('cart'))||[];
+let totalPrice=parseFloat(localStorage.getItem('totalPrice'))||0;
+const itemsEl=document.getElementById('checkout-items');
+const totalEl=document.getElementById('checkout-total');
+
+if(cart.length===0){ itemsEl.innerHTML='<li>Your cart is empty!</li>'; totalEl.textContent=''; }
+else{
+  cart.forEach(i=>{
+    const li=document.createElement('li');
+    li.textContent=`${i.name} — £${i.price}`;
+    itemsEl.appendChild(li);
+  });
+  totalEl.textContent=`Total: £${totalPrice.toFixed(2)}`;
+}
+
+function proceedToPay(){
+  const method=document.querySelector('input[name="payment"]:checked').value;
+  if(cart.length===0) return;
+  if(method==='paypal'){
+    const form=document.createElement('form');
+    form.action='https://www.paypal.com/cgi-bin/webscr';
+    form.method='post';
+    form.target='_blank';
+    form.appendChild(hiddenInput('cmd','_xclick'));
+    form.appendChild(hiddenInput('business','s.mooij2011@gmail.com'));
+    form.appendChild(hiddenInput('item_name',cart.map(i=>i.name).join(', ')));
+    form.appendChild(hiddenInput('amount',totalPrice.toFixed(2)));
+    form.appendChild(hiddenInput('currency_code','GBP'));
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+    alert('After payment, please open a ticket in our Discord to claim your items.');
+    localStorage.removeItem('cart');
+    localStorage.removeItem('totalPrice');
+    window.location.href='buying.html';
+  } else alert('iDEAL coming soon!');
+}
+
+function hiddenInput(name,value){
+  const input=document.createElement('input');
+  input.type='hidden';
+  input.name=name;
+  input.value=value;
+  return input;
+}
+</script>
+
 </body>
 </html>
