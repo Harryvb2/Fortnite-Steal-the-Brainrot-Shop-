@@ -209,3 +209,33 @@ body{
   .nav-link{ padding:6px 8px; font-size:14px; }
   .hero-text h1{ font-size:22px; }
 }
+/* Footer centering for home and discord pages */
+.site-footer {
+  text-align: center;  /* centreren van copyright + Discord link */
+  padding: 14px 20px;
+  color: var(--muted);
+  background: rgba(0,0,0,0.12);
+  margin-top: 28px;
+}
+
+/* Discord page centering */
+.discord-panel {
+  max-width: 600px;
+  margin: 60px auto;  /* gecentreerd verticaal en horizontaal */
+  text-align: center;
+  padding: 20px;
+  background: var(--panel);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+}
+.discord-panel h2 {
+  margin-bottom: 12px;
+  font-size: 1.8rem;
+}
+.discord-panel p {
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+.discord-panel .btn {
+  display: inline-block;
+}
