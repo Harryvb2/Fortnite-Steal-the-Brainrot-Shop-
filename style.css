@@ -145,6 +145,7 @@ nav{ display:flex; gap:14px; }
   max-width:1100px;
   margin:0 auto 28px;
 }
+
 .product-card{
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
   border-radius:12px;
@@ -153,13 +154,19 @@ nav{ display:flex; gap:14px; }
   position:relative;
   border:1px solid rgba(255,255,255,0.03);
 }
+
 .product-card img{
   width:100%;
-  height:140px;
-  object-fit:cover;
+  height: auto;          /* automatisch hoogte */
+  max-height:160px;      /* niet te groot */
+  object-fit: contain;    /* hele afbeelding zichtbaar */
   border-radius:8px;
   display:block;
   margin-bottom:10px;
+}
+.product-card h3{ font-size:1rem; margin:6px 0; color:#e8fff9; }
+.product-card .price{ color:var(--muted); font-weight:700; margin-bottom:8px; }
+
 }
 .product-card h3{ font-size:1rem; margin:6px 0; color:#e8fff9; }
 .product-card .price{ color:var(--muted); font-weight:700; margin-bottom:8px; }
