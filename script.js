@@ -1,208 +1,230 @@
-// script.js - complete cart & bundle logic
+// script.js - volledige cart & bundles logica
 
 let cart = [];
 let totalPrice = 0;
 
-// --- PRODUCT DEFINITIES ---
+// --- Producten en bundles info ---
 const products = {
-  "dul": { name: "Dul Dul Dul", price: 40, type: "single" },
-  "tualetti": { name: "Spaghetti Tualetti", price: 30, type: "single" },
-  "chic1": { name: "Chicleteira Bicicleteira", price: 20, type: "single" },
-  "chic2": { name: "Chicleteira Bicicleteira", price: 20, type: "single" },
-  "grande": { name: "La Grande Combinacion", price: 10, type: "single" },
-  "bundle1": { name: "Bundle 1", price: 95, type: "bundle" },
-  "bundle2": { name: "Bundle 2", price: 45, type: "bundle" },
-  "bundle3": { name: "Bundle 3", price: 45, type: "bundle" }
+  dul: {name:"Dul Dul Dul (NEON)", price:40},
+  tualetti: {name:"Spaghetti Tualetti (LIGHTNING TRAIT)", price:30},
+  chic1: {name:"Chicleteira Bicicleteira (HALLOWEEN)", price:20},
+  chic2: {name:"Chicleteira Bicicleteira (HALLOWEEN)", price:20},
+  grande: {name:"La Grande Combinacion (HALLOWEEN)", price:10},
+  bundle1: {name:"Bundle 1", price:95},
+  bundle2: {name:"Bundle 2", price:45},
+  bundle3: {name:"Bundle 3", price:45},
 };
 
-// --- ADD TO CART ---
+// --- Add to cart ---
 function addToCart(id) {
-  if (cart.find(i => i.id === id)) {
-    alert(`${products[id].name} is already in your cart.`);
-    return;
-  }
+  // check if already in cart
+  if(cart.find(i => i.id === id)) return;
 
-  // exclusivity logic for bundles
-  if (id === "bundle1") {
-    // disable all singles and bundles
+  // exclusivity logic
+  // bundles remove certain items or other bundles
+  if(id === "bundle1") {
     ["dul","tualetti","chic1","chic2","grande","bundle2","bundle3"].forEach(disableBtn);
-  }
-  if (id === "bundle2") {
-    // disable dul + chicleteira + bundle1 + bundle3
-    ["dul","chic1","chic2","bundle1","bundle3"].forEach(disableBtn);
-  }
-  if (id === "bundle3") {
-    // disable la grande, chicleteira, tualetti + bundle1 + bundle2
-    ["grande","chic1","chic2","tualetti","bundle1","bundle2"].forEach(disableBtn);
+  } else if(id === "bundle2") {
+    disableBtn("dul","chic1","chic2"); // only disables these items
+  } else if(id === "bundle3") {
+    disableBtn("la_grande","chic1","chic2","tualetti"); // adjust id names to match buttons
+    disableBtn("bundle1"); // bundle1 cannot be bought with bundle3
+  } else {
+    // individual products
+    if(id === "dul") disableBtn("bundle1","bundle2");
+    if(id === "tualetti") disableBtn("bundle1","bundle3");
+    if(id === "grande") disableBtn("bundle1","bundle3");
+    if(id === "chic1" || id==="chic2") {
+      disableBtn("bundle1","bundle2","bundle3");
+    }
   }
 
-  // exclusivity logic for single items affecting bundles
-  if (id === "dul") disableBtn("bundle1","bundle2");
-  if (id === "tualetti") disableBtn("bundle1","bundle3");
-  if (id === "grande") disableBtn("bundle1","bundle3");
-  if (id === "chic2") disableBtn("bundle1","bundle2","bundle3"); // second chicleteira sold disables all bundles
-
-  cart.push({ id, ...products[id] });
+  // add to cart
+  cart.push({id, ...products[id]});
   totalPrice += products[id].price;
   updateCart();
-  showNotification(`${products[id].name} added to cart`);
+
   // disable button
-  disableBtn(id);
+  const btn = document.getElementById(`add-${id}`);
+  if(btn){
+    btn.disabled = true;
+    btn.textContent = "Sold out";
+    btn.classList.add("sold-out");
+  }
+
+  showNotification(`${products[id].name} added to cart!`);
 }
 
-// --- REMOVE FROM CART ---
-function removeFromCart(id) {
-  const idx = cart.findIndex(i => i.id === id);
-  if (idx === -1) return;
-  totalPrice -= cart[idx].price;
-  cart.splice(idx,1);
+// --- Remove from cart ---
+function removeFromCart(id){
+  const index = cart.findIndex(i => i.id === id);
+  if(index === -1) return;
+  totalPrice -= cart[index].price;
+  cart.splice(index,1);
   updateCart();
 
-  // re-enable buttons
-  Object.keys(products).forEach(prodId => {
-    const btn = document.getElementById(`add-${prodId}`);
-    if (btn && !cart.find(c => c.id === prodId)) {
-      btn.disabled = false;
-      btn.textContent = 'Add to cart';
-      btn.classList.remove('sold-out');
-    }
-  });
+  // re-enable button if not sold out by exclusivity
+  const btn = document.getElementById(`add-${id}`);
+  if(btn){
+    btn.disabled = false;
+    btn.textContent = "Add to cart";
+    btn.classList.remove("sold-out");
+  }
 
-  recalcExclusives();
+  // optional: reset other items/bundles if exclusivity was applied
+  resetExclusivity();
 }
 
-// --- UPDATE CART DISPLAY ---
-function updateCart() {
-  const cartItems = document.getElementById("cart-items");
-  const cartTotal = document.getElementById("cart-total");
-  cartItems.innerHTML = "";
+// --- Update cart UI ---
+function updateCart(){
+  const list = document.getElementById("cart-items");
+  const total = document.getElementById("cart-total");
+  if(!list) return;
+  list.innerHTML = "";
   cart.forEach(item => {
     const li = document.createElement("li");
-    li.className = "cart-item";
-    li.innerHTML = `
-      <span>${item.name}</span>
-      <span>£${item.price.toFixed(2)}</span>
-      <button class="remove-btn" onclick="removeFromCart('${item.id}')">Remove</button>
-    `;
-    cartItems.appendChild(li);
+    li.className="cart-item";
+    li.innerHTML = `<span>${item.name}</span><span>£${item.price}</span><button class="remove-btn" onclick="removeFromCart('${item.id}')">Remove</button>`;
+    list.appendChild(li);
   });
-  if(cartTotal) cartTotal.textContent = `Total: £${totalPrice.toFixed(2)}`;
+  if(total) total.textContent = `Total: £${totalPrice}`;
 }
 
-// --- NOTIFICATION ---
-function showNotification(msg) {
-  const notif = document.getElementById("cart-notification");
-  if(!notif) return;
-  notif.textContent = msg;
-  notif.classList.add("show");
-  setTimeout(()=>notif.classList.remove("show"),1500);
-}
-
-// --- DISABLE BUTTON ---
-function disableBtn(id) {
+// --- Disable buttons helper ---
+function disableBtn(id){
   const btn = document.getElementById(`add-${id}`);
-  if(!btn) return;
-  btn.disabled = true;
-  btn.textContent = "Sold out";
-  btn.classList.add("sold-out");
+  if(btn){
+    btn.disabled = true;
+    btn.textContent = "Sold out";
+    btn.classList.add("sold-out");
+  }
 }
 
-// --- RECALCULATE EXCLUSIVES AFTER REMOVE ---
-function recalcExclusives() {
-  // reset all sold-out buttons first
-  Object.keys(products).forEach(prodId => {
-    const btn = document.getElementById(`add-${prodId}`);
-    if(btn && !cart.find(c=>c.id===prodId)) {
+// --- Reset exclusivity after removing items ---
+function resetExclusivity(){
+  // re-enable all buttons not in cart
+  Object.keys(products).forEach(id => {
+    const inCart = cart.find(i => i.id === id);
+    const btn = document.getElementById(`add-${id}`);
+    if(!inCart && btn){
       btn.disabled = false;
       btn.textContent = "Add to cart";
       btn.classList.remove("sold-out");
     }
   });
 
-  // reapply exclusivity based on current cart
-  cart.forEach(item=>{
-    if(item.id==="bundle1") ["dul","tualetti","chic1","chic2","grande","bundle2","bundle3"].forEach(disableBtn);
-    if(item.id==="bundle2") ["dul","chic1","chic2","bundle1","bundle3"].forEach(disableBtn);
-    if(item.id==="bundle3") ["grande","chic1","chic2","tualetti","bundle1","bundle2"].forEach(disableBtn);
-    if(item.id==="dul") disableBtn("bundle1","bundle2");
-    if(item.id==="tualetti") disableBtn("bundle1","bundle3");
-    if(item.id==="grande") disableBtn("bundle1","bundle3");
-    if(item.id==="chic2") disableBtn("bundle1","bundle2","bundle3");
+  // re-apply exclusivity for bundles based on current cart
+  cart.forEach(item => {
+    const id = item.id;
+    if(id === "bundle1"){
+      ["dul","tualetti","chic1","chic2","grande","bundle2","bundle3"].forEach(disableBtn);
+    } else if(id === "bundle2"){
+      disableBtn("dul","chic1","chic2");
+    } else if(id === "bundle3"){
+      disableBtn("grande","chic1","chic2","tualetti");
+      disableBtn("bundle1");
+    } else {
+      if(id === "dul") disableBtn("bundle1","bundle2");
+      if(id === "tualetti") disableBtn("bundle1","bundle3");
+      if(id === "grande") disableBtn("bundle1","bundle3");
+      if(id === "chic1" || id==="chic2") disableBtn("bundle1","bundle2","bundle3");
+    }
   });
 }
 
-// --- CHECKOUT MODAL ---
-function checkout() {
-  if(cart.length===0){ alert("Your cart is empty!"); return; }
-  const modal=document.getElementById("checkoutModal");
-  const list=document.getElementById("checkout-items");
-  const total=document.getElementById("checkout-total");
-  list.innerHTML="";
-  cart.forEach(i=>{
-    const li=document.createElement("li");
-    li.textContent=`${i.name} — £${i.price.toFixed(2)}`;
-    list.appendChild(li);
+// --- Checkout modal ---
+function checkout(){
+  if(cart.length===0){ alert("Cart is empty!"); return; }
+  const modal = document.getElementById("checkoutModal");
+  const itemsList = document.getElementById("checkout-items");
+  const totalEl = document.getElementById("checkout-total");
+
+  itemsList.innerHTML="";
+  cart.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = `${item.name} — £${item.price}`;
+    itemsList.appendChild(li);
   });
-  total.textContent=`Total: £${totalPrice.toFixed(2)}`;
+  totalEl.textContent = `Total: £${totalPrice.toFixed(2)}`;
+
   modal.style.display="flex";
 }
 
-// --- CLOSE MODALS ---
-function closeCheckout() {
-  const modal=document.getElementById("checkoutModal");
-  modal.style.display="none";
-}
-function closePost() {
-  const modal=document.getElementById("postModal");
+// --- Close checkout ---
+function closeCheckout(){
+  const modal = document.getElementById("checkoutModal");
   modal.style.display="none";
 }
 
-// --- PAYPAL PAYMENT ---
-function proceedToPayPal() {
-  if(cart.length===0){ alert("Your cart is empty!"); closeCheckout(); return; }
-  const form=document.createElement("form");
+// --- Proceed to PayPal ---
+function proceedToPayPal(){
+  if(cart.length===0) { alert("Cart empty"); return; }
+
+  const form = document.createElement("form");
   form.action="https://www.paypal.com/cgi-bin/webscr";
   form.method="post";
   form.target="_blank";
+
   form.appendChild(hiddenInput("cmd","_xclick"));
   form.appendChild(hiddenInput("business","s.mooij2011@gmail.com"));
   form.appendChild(hiddenInput("item_name",cart.map(i=>i.name).join(", ")));
   form.appendChild(hiddenInput("amount",totalPrice.toFixed(2)));
   form.appendChild(hiddenInput("currency_code","GBP"));
+
   document.body.appendChild(form);
   form.submit();
   document.body.removeChild(form);
+
   closeCheckout();
   showPostPurchase();
 }
 
-// --- HELPERS ---
+// --- Helper for hidden inputs ---
 function hiddenInput(name,value){
-  const inp=document.createElement("input");
-  inp.type="hidden";
-  inp.name=name;
-  inp.value=value;
-  return inp;
+  const input = document.createElement("input");
+  input.type="hidden";
+  input.name=name;
+  input.value=value;
+  return input;
 }
 
-// --- POST PURCHASE MODAL ---
+// --- Post purchase modal ---
 function showPostPurchase(){
-  const modal=document.getElementById("postModal");
+  const modal = document.getElementById("postModal");
   modal.style.display="flex";
-  cart=[];
-  totalPrice=0;
+
+  cart=[]; totalPrice=0;
   updateCart();
-  // reset all buttons
+
+  // re-enable all buttons
   Object.keys(products).forEach(id=>{
-    const btn=document.getElementById(`add-${id}`);
-    if(btn){ btn.disabled=false; btn.textContent="Add to cart"; btn.classList.remove("sold-out"); }
+    const btn = document.getElementById(`add-${id}`);
+    if(btn){
+      btn.disabled=false;
+      btn.textContent="Add to cart";
+      btn.classList.remove("sold-out");
+    }
   });
 }
 
-// --- CLOSE MODAL CLICK OUTSIDE ---
-window.addEventListener("click",function(e){
-  const checkout=document.getElementById("checkoutModal");
-  const post=document.getElementById("postModal");
+function closePost(){
+  const modal = document.getElementById("postModal");
+  modal.style.display="none";
+}
+
+// --- Notification ---
+function showNotification(message){
+  const notif = document.getElementById("cart-notification");
+  if(!notif) return;
+  notif.textContent = message;
+  notif.classList.add("show");
+  setTimeout(()=>{notif.classList.remove("show");},2000);
+}
+
+// --- Close modals on outside click ---
+window.addEventListener("click",e=>{
+  const checkout = document.getElementById("checkoutModal");
+  const post = document.getElementById("postModal");
   if(e.target===checkout) closeCheckout();
   if(e.target===post) closePost();
 });

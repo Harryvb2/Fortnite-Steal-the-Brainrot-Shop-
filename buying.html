@@ -1,106 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Shop - Steal The Brainrot</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Steal The Brainrot - Shop</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="brand">Steal The Brainrot</div>
-    <nav>
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="discord.html" class="nav-link">Discord</a>
-      <a href="buying.html" class="nav-link active">Shop</a>
-      <a href="bundles.html" class="nav-link">Bundles</a>
-      <a href="vouches.html" class="nav-link">Vouches</a>
-    </nav>
-  </header>
+<header class="site-header">
+  <div class="brand">Steal The Brainrot</div>
+  <nav>
+    <a href="index.html" class="nav-link" id="nav-home">Home</a>
+    <a href="discord.html" class="nav-link" id="nav-discord">Discord</a>
+    <a href="buying.html" class="nav-link active" id="nav-buying">Shop</a>
+    <a href="vouches.html" class="nav-link" id="nav-vouches">Vouches</a>
+    <a href="bundles.html" class="nav-link" id="nav-bundles">Bundles</a>
+  </nav>
+</header>
 
-  <main class="shop-main">
-    <h1>Shop Our Brainrots</h1>
-    <p class="lead">Click "Add to cart" to add an item. Each product can only be purchased once.</p>
+<main class="shop-main">
+  <h1>Shop</h1>
+  <p class="lead">Choose your items or bundles</p>
 
-    <div class="product-grid">
-      <!-- Dul Dul Dul -->
-      <div class="product-card" id="prod-dul" data-id="dul">
-        <img src="dul dul dul.jpeg" alt="Dul Dul Dul">
-        <h3>Dul Dul Dul (NEON)</h3>
-        <div class="price">£40</div>
-        <button id="add-dul" class="btn add-btn" onclick="addProductToCart('dul')">Add to cart</button>
-      </div>
+  <!-- Product grid -->
+  <div class="product-grid">
 
-      <!-- Spaghetti Tualetti -->
-      <div class="product-card" id="prod-tualetti" data-id="tualetti">
-        <img src="tualetti.jpeg" alt="Spaghetti Tualetti">
-        <h3>Spaghetti Tualetti (LIGHTNING TRAIT)</h3>
-        <div class="price">£30</div>
-        <button id="add-tualetti" class="btn add-btn" onclick="addProductToCart('tualetti')">Add to cart</button>
-      </div>
-
-      <!-- Chicleteira 1 -->
-      <div class="product-card" id="prod-chic1" data-id="chic1">
-        <img src="chicleteira.jpeg" alt="Chicleteira Bicicleteira (HALLOWEEN)">
-        <h3>Chicleteira Bicicleteira (HALLOWEEN)</h3>
-        <div class="price">£20</div>
-        <button id="add-chic1" class="btn add-btn" onclick="addProductToCart('chic1')">Add to cart</button>
-      </div>
-
-      <!-- Chicleteira 2 -->
-      <div class="product-card" id="prod-chic2" data-id="chic2">
-        <img src="chicleteira.jpeg" alt="Chicleteira Bicicleteira (HALLOWEEN)">
-        <h3>Chicleteira Bicicleteira (HALLOWEEN)</h3>
-        <div class="price">£20</div>
-        <button id="add-chic2" class="btn add-btn" onclick="addProductToCart('chic2')">Add to cart</button>
-      </div>
-
-      <!-- La Grande -->
-      <div class="product-card" id="prod-grande" data-id="grande">
-        <img src="la grande.jpeg" alt="La Grande Combinacion">
-        <h3>La Grande Combinacion (HALLOWEEN)</h3>
-        <div class="price">£10</div>
-        <button id="add-grande" class="btn add-btn" onclick="addProductToCart('grande')">Add to cart</button>
-      </div>
+    <!-- Dul Dul Dul -->
+    <div class="product-card">
+      <img src="dul.png" alt="Dul Dul Dul">
+      <h3>Dul Dul Dul</h3>
+      <p class="price">£40</p>
+      <button class="btn" id="add-dul" onclick="addToCart('dul')">Add to cart</button>
+      <div class="sold-out">Sold out</div>
     </div>
 
-    <div class="cart-overview">
-      <h2>Your Cart</h2>
-      <ul id="cart-items" class="cart-list"></ul>
-      <div class="cart-footer">
-        <div id="cart-total">Total: £0</div>
-        <button class="btn primary" onclick="checkout()">Review & Checkout</button>
-      </div>
+    <!-- Spaghetti Tualetti -->
+    <div class="product-card">
+      <img src="spaghetti.png" alt="Spaghetti Tualetti">
+      <h3>Spaghetti Tualetti</h3>
+      <p class="price">£30</p>
+      <button class="btn" id="add-tualetti" onclick="addToCart('tualetti')">Add to cart</button>
+      <div class="sold-out">Sold out</div>
     </div>
-  </main>
 
-  <!-- Checkout modal -->
-  <div id="checkoutModal" class="modal" aria-hidden="true">
-    <div class="modal-panel">
-      <button class="modal-close" onclick="closeCheckout()" aria-label="Close">&times;</button>
-      <h3>Review your order</h3>
-      <ul id="checkout-items" class="checkout-list"></ul>
-      <div id="checkout-total" class="checkout-total">Total: £0.00</div>
-      <div class="modal-actions">
-        <button class="btn" onclick="closeCheckout()">Back</button>
-        <button class="btn primary" onclick="proceedToPay()">Buy (PayPal / Card)</button>
-      </div>
+    <!-- Chicleteira Bicicleteira 1 -->
+    <div class="product-card">
+      <img src="chicleteira1.png" alt="Chicleteira 1">
+      <h3>Chicleteira Bicicleteira</h3>
+      <p class="price">£20</p>
+      <button class="btn" id="add-chic1" onclick="addToCart('chic1')">Add to cart</button>
+      <div class="sold-out">Sold out</div>
     </div>
+
+    <!-- Chicleteira Bicicleteira 2 -->
+    <div class="product-card">
+      <img src="chicleteira2.png" alt="Chicleteira 2">
+      <h3>Chicleteira Bicicleteira</h3>
+      <p class="price">£20</p>
+      <button class="btn" id="add-chic2" onclick="addToCart('chic2')">Add to cart</button>
+      <div class="sold-out">Sold out</div>
+    </div>
+
+    <!-- La Grande Combinacion -->
+    <div class="product-card">
+      <img src="grande.png" alt="La Grande Combinacion">
+      <h3>La Grande Combinacion</h3>
+      <p class="price">£10</p>
+      <button class="btn" id="add-grande" onclick="addToCart('grande')">Add to cart</button>
+      <div class="sold-out">Sold out</div>
+    </div>
+
+    <!-- Bundle 1 -->
+    <div class="product-card">
+      <img src="bundel1.png" alt="Bundle 1">
+      <h3>Bundle 1</h3>
+      <p class="price">£95</p>
+      <button class="btn" id="add-bundle1" onclick="addToCart('bundle1')">Add to cart</button>
+      <div class="sold-out">Sold out</div>
+    </div>
+
+    <!-- Bundle 2 -->
+    <div class="product-card">
+      <img src="bundel2.png" alt="Bundle 2">
+      <h3>Bundle 2</h3>
+      <p class="price">£45</p>
+      <button class="btn" id="add-bundle2" onclick="addToCart('bundle2')">Add to cart</button>
+      <div class="sold-out">Sold out</div>
+    </div>
+
+    <!-- Bundle 3 -->
+    <div class="product-card">
+      <img src="bundel3.png" alt="Bundle 3">
+      <h3>Bundle 3</h3>
+      <p class="price">£45</p>
+      <button class="btn" id="add-bundle3" onclick="addToCart('bundle3')">Add to cart</button>
+      <div class="sold-out">Sold out</div>
+    </div>
+
   </div>
 
-  <!-- Post purchase modal -->
-  <div id="postModal" class="modal" aria-hidden="true">
-    <div class="modal-panel">
-      <button class="modal-close" onclick="closePost()" aria-label="Close">&times;</button>
-      <h3>Thank you!</h3>
-      <p>Your PayPal window should now be open. After completing payment, please open a ticket in our Discord server to receive your items.</p>
-      <a href="https://discord.gg/7AgCkbJk2W" class="btn primary" target="_blank">Open Discord</a>
-    </div>
+  <!-- Cart overview -->
+  <div class="cart-overview">
+    <h2>Your Cart</h2>
+    <ul id="cart-items" class="cart-list"></ul>
+    <p id="cart-total">Total: £0</p>
+    <button class="btn primary" onclick="checkout()">Checkout</button>
   </div>
+</main>
 
-  <div id="cart-notification" class="cart-notification"></div>
+<!-- Cart notification -->
+<div id="cart-notification" class="cart-notification"></div>
 
-  <script src="script.js" defer></script>
+<!-- Checkout Modal -->
+<div id="checkoutModal" class="modal">
+  <div class="modal-panel">
+    <button class="modal-close" onclick="closeCheckout()">×</button>
+    <h2>Checkout</h2>
+    <ul id="checkout-items"></ul>
+    <p id="checkout-total"></p>
+    <button class="btn primary" onclick="proceedToPayPal()">Pay with PayPal</button>
+  </div>
+</div>
+
+<!-- Post-purchase Modal -->
+<div id="postModal" class="modal">
+  <div class="modal-panel">
+    <button class="modal-close" onclick="closePost()">×</button>
+    <h2>Thank you for your purchase!</h2>
+    <p>Your order has been received.</p>
+  </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
 
