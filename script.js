@@ -4,10 +4,10 @@ const PAYPAL_EMAIL = 's.mooij2011@gmail.com';
 
 // ---------------- DATA ----------------
 const PRODUCTS = {
-  dul: { id:'dul', name:'Dul Dul Dul (NEON)', price:40 },
-  tualetti: { id:'tualetti', name:'Spaghetti Tualetti (LIGHTNING TRAIT)', price:30 },
-  chic1: { id:'chic1', name:'Chicleteira Bicicleteira (HALLOWEEN)', price:20 },
-  chic2: { id:'chic2', name:'Chicleteira Bicicleteira (HALLOWEEN)', price:20 },
+  dul: { id:'dul', name:'Dul Dul Dul (NEON)', price:30 },
+  tualetti: { id:'tualetti', name:'Spaghetti Tualetti (LIGHTNING TRAIT)', price:25 },
+  chic1: { id:'chic1', name:'Chicleteira Bicicleteira (HALLOWEEN)', price:15 },
+  chic2: { id:'chic2', name:'Chicleteira Bicicleteira (HALLOWEEN)', price:15 },
   grande: { id:'grande', name:'La Grande Combinacion (HALLOWEEN)', price:10 }
 };
 
