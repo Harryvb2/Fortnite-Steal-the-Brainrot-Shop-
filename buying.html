@@ -19,48 +19,53 @@
   </header>
 
   <main class="shop-main">
-    <h1>Shop Our Brainrots</h1>
-    <p class="lead">Click "Add to cart" to add an item. Each product can only be purchased once.</p>
+    <h1>Shop</h1>
+    <p class="lead">Choose single items or add bundles (bundles affect availability automatically).</p>
 
     <div class="product-grid">
       <!-- Dul Dul Dul -->
-      <div class="product-card" id="prod-dul" data-id="dul">
-        <img src="dul dul dul.jpeg" alt="Dul Dul Dul">
+      <div class="product-card" id="prod-dul">
+        <img src="dul.jpeg" alt="Dul Dul Dul">
         <h3>Dul Dul Dul (NEON)</h3>
         <div class="price">£40</div>
-        <button id="add-dul" class="btn add-btn" onclick="addProductToCart('dul')">Add to cart</button>
+        <button id="add-dul" class="btn" onclick="addToCart('dul')">Add to cart</button>
+        <div class="sold-badge" id="sold-dul">Sold out</div>
       </div>
 
       <!-- Spaghetti Tualetti -->
-      <div class="product-card" id="prod-tualetti" data-id="tualetti">
+      <div class="product-card" id="prod-tualetti">
         <img src="tualetti.jpeg" alt="Spaghetti Tualetti">
         <h3>Spaghetti Tualetti (LIGHTNING TRAIT)</h3>
         <div class="price">£30</div>
-        <button id="add-tualetti" class="btn add-btn" onclick="addProductToCart('tualetti')">Add to cart</button>
+        <button id="add-tualetti" class="btn" onclick="addToCart('tualetti')">Add to cart</button>
+        <div class="sold-badge" id="sold-tualetti">Sold out</div>
       </div>
 
       <!-- Chicleteira 1 -->
-      <div class="product-card" id="prod-chic1" data-id="chic1">
-        <img src="chicleteira.jpeg" alt="Chicleteira Bicicleteira (HALLOWEEN)">
+      <div class="product-card" id="prod-chic1">
+        <img src="chicleteira1.jpeg" alt="Chicleteira 1">
         <h3>Chicleteira Bicicleteira (HALLOWEEN)</h3>
         <div class="price">£20</div>
-        <button id="add-chic1" class="btn add-btn" onclick="addProductToCart('chic1')">Add to cart</button>
+        <button id="add-chic1" class="btn" onclick="addToCart('chic1')">Add to cart</button>
+        <div class="sold-badge" id="sold-chic1">Sold out</div>
       </div>
 
       <!-- Chicleteira 2 -->
-      <div class="product-card" id="prod-chic2" data-id="chic2">
-        <img src="chicleteira.jpeg" alt="Chicleteira Bicicleteira (HALLOWEEN)">
+      <div class="product-card" id="prod-chic2">
+        <img src="chicleteira2.jpeg" alt="Chicleteira 2">
         <h3>Chicleteira Bicicleteira (HALLOWEEN)</h3>
         <div class="price">£20</div>
-        <button id="add-chic2" class="btn add-btn" onclick="addProductToCart('chic2')">Add to cart</button>
+        <button id="add-chic2" class="btn" onclick="addToCart('chic2')">Add to cart</button>
+        <div class="sold-badge" id="sold-chic2">Sold out</div>
       </div>
 
       <!-- La Grande -->
-      <div class="product-card" id="prod-grande" data-id="grande">
-        <img src="la grande.jpeg" alt="La Grande Combinacion">
+      <div class="product-card" id="prod-grande">
+        <img src="grande.jpeg" alt="La Grande Combinacion">
         <h3>La Grande Combinacion (HALLOWEEN)</h3>
         <div class="price">£10</div>
-        <button id="add-grande" class="btn add-btn" onclick="addProductToCart('grande')">Add to cart</button>
+        <button id="add-grande" class="btn" onclick="addToCart('grande')">Add to cart</button>
+        <div class="sold-badge" id="sold-grande">Sold out</div>
       </div>
     </div>
 
@@ -74,7 +79,7 @@
     </div>
   </main>
 
-  <!-- Checkout modal -->
+  <!-- Modals & notification (same ids used by script.js) -->
   <div id="checkoutModal" class="modal" aria-hidden="true">
     <div class="modal-panel">
       <button class="modal-close" onclick="closeCheckout()" aria-label="Close">&times;</button>
@@ -88,7 +93,6 @@
     </div>
   </div>
 
-  <!-- Post purchase modal -->
   <div id="postModal" class="modal" aria-hidden="true">
     <div class="modal-panel">
       <button class="modal-close" onclick="closePost()" aria-label="Close">&times;</button>
@@ -103,6 +107,4 @@
   <script src="script.js" defer></script>
 </body>
 </html>
-
-
 

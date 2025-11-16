@@ -1,64 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bundles • Steal The Brainrot</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Bundles - Steal The Brainrot</title>
   <link rel="stylesheet" href="style.css">
-  <script defer src="script.js"></script>
 </head>
-
 <body>
+  <header class="site-header">
+    <div class="brand">Steal The Brainrot</div>
+    <nav>
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="discord.html" class="nav-link">Discord</a>
+      <a href="buying.html" class="nav-link">Shop</a>
+      <a href="bundles.html" class="nav-link active">Bundles</a>
+      <a href="vouches.html" class="nav-link">Vouches</a>
+    </nav>
+  </header>
 
-<header class="site-header">
-  <div class="brand">Steal The Brainrot</div>
-  <nav>
-    <a href="index.html" class="nav-link">Home</a>
-    <a href="discord.html" class="nav-link">Discord</a>
-    <a href="buying.html" class="nav-link">Shop</a>
-    <a href="bundles.html" class="nav-link active">Bundles</a>
-    <a href="vouches.html" class="nav-link">Vouches</a>
-  </nav>
-</header>
+  <main class="shop-main">
+    <h1>Bundles</h1>
+    <p class="lead">Bundles include multiple items — buying a bundle updates availability automatically.</p>
 
-<main class="shop-main">
-  <h1>Bundles</h1>
-  <p class="lead">Premium bundle deals — cheaper than buying items separately.</p>
+    <div class="product-grid">
+      <!-- Bundle 1 -->
+      <div class="product-card" id="prod-bundle1">
+        <img src="bundel1.jpeg" alt="Bundle 1">
+        <h3>Bundle 1</h3>
+        <div class="price">£80</div>
+        <button id="add-bundle1" class="btn" onclick="addToCart('bundle1')">Add to cart</button>
+        <div class="sold-badge" id="sold-bundle1">Sold out</div>
+      </div>
 
-  <!-- BUNDLES GRID -->
-  <div class="product-grid">
+      <!-- Bundle 2 -->
+      <div class="product-card" id="prod-bundle2">
+        <img src="bundel2.jpeg" alt="Bundle 2">
+        <h3>Bundle 2</h3>
+        <div class="price">£40</div>
+        <button id="add-bundle2" class="btn" onclick="addToCart('bundle2')">Add to cart</button>
+        <div class="sold-badge" id="sold-bundle2">Sold out</div>
+      </div>
 
-    <!-- BUNDLE 1 -->
-    <div class="product-card" data-name="Bundle 1" data-price="95">
-      <img src="bundel 1.jpeg" alt="Bundle 1">
-      <h3>Bundle 1</h3>
-      <p class="price">£95</p>
-      <button class="btn add-to-cart">Add to Cart</button>
+      <!-- Bundle 3 -->
+      <div class="product-card" id="prod-bundle3">
+        <img src="bundel3.jpeg" alt="Bundle 3">
+        <h3>Bundle 3</h3>
+        <div class="price">£40</div>
+        <button id="add-bundle3" class="btn" onclick="addToCart('bundle3')">Add to cart</button>
+        <div class="sold-badge" id="sold-bundle3">Sold out</div>
+      </div>
     </div>
 
-    <!-- BUNDLE 2 -->
-    <div class="product-card" data-name="Bundle 2" data-price="45">
-      <img src="bundel 2.jpeg" alt="Bundle 2">
-      <h3>Bundle 2</h3>
-      <p class="price">£45</p>
-      <button class="btn add-to-cart">Add to Cart</button>
+    <div class="cart-overview">
+      <h2>Your Cart</h2>
+      <ul id="cart-items" class="cart-list"></ul>
+      <div class="cart-footer">
+        <div id="cart-total">Total: £0</div>
+        <button class="btn primary" onclick="checkout()">Review & Checkout</button>
+      </div>
     </div>
+  </main>
 
-    <!-- BUNDLE 3 -->
-    <div class="product-card" data-name="Bundle 3" data-price="45">
-      <img src="bundel 3.jpeg" alt="Bundle 3">
-      <h3>Bundle 3</h3>
-      <p class="price">£45</p>
-      <button class="btn add-to-cart">Add to Cart</button>
+  <div id="cart-notification" class="cart-notification"></div>
+
+  <!-- reuse modals -->
+  <div id="checkoutModal" class="modal" aria-hidden="true">
+    <div class="modal-panel">
+      <button class="modal-close" onclick="closeCheckout()" aria-label="Close">&times;</button>
+      <h3>Review your order</h3>
+      <ul id="checkout-items" class="checkout-list"></ul>
+      <div id="checkout-total" class="checkout-total">Total: £0.00</div>
+      <div class="modal-actions">
+        <button class="btn" onclick="closeCheckout()">Back</button>
+        <button class="btn primary" onclick="proceedToPay()">Buy (PayPal / Card)</button>
+      </div>
     </div>
-
   </div>
-</main>
 
-<footer class="site-footer">
-  <p>© 2025 Steal The Brainrot • Join our Discord: discord.gg/7AgCkbJk2W</p>
-</footer>
+  <div id="postModal" class="modal" aria-hidden="true">
+    <div class="modal-panel">
+      <button class="modal-close" onclick="closePost()" aria-label="Close">&times;</button>
+      <h3>Thank you!</h3>
+      <p>Your PayPal window should now be open. After completing payment, please open a ticket in our Discord server to receive your items.</p>
+      <a href="https://discord.gg/7AgCkbJk2W" class="btn primary" target="_blank">Open Discord</a>
+    </div>
+  </div>
 
+  <script src="script.js" defer></script>
 </body>
 </html>
 
